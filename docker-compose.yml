@@ -12,3 +12,5 @@ data:
     build: ./nginx/
     entrypoint: /bin/true
     command: --
+    volumes:
+     - /usr/local/share/ca-certificates/certs/:/etc/nginx/certs
