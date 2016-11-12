@@ -1,16 +1,15 @@
-nginx:
-    build: ./nginx/
-    restart: always
-    ports:
-     - "80:80"
-     - "443:443"
-    volumes:
-     - /var/run/docker.sock:/tmp/docker.sock
-    volumes_from:
-     - data
-data:
-    build: ./nginx/
-    entrypoint: /bin/true
-    command: --
-    volumes:
-     - /usr/local/share/ca-certificates/certs/:/etc/nginx/certs
+version: "2"
+services:
+    nginx:
+        build: ./nginx/
+        restart: always
+        networks:
+         - proxy
+        ports:
+         - "80:80"
+         - "443:443"
+        volumes:
+         - /var/run/docker.sock:/tmp/docker.sock
+networks:
+    proxy:
+        external: true
