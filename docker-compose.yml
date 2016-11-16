@@ -10,6 +10,16 @@ services:
          - "443:443"
         volumes:
          - /var/run/docker.sock:/tmp/docker.sock
+         - ./data/certs:/etc/nginx/certs
+    ssl:
+        image: torvitas/ssl
+        environment:
+            UNIQUE_CERT_NAME: "dev"
+            DNS_0: "*.dev.localhost"
+            DNS_1: "*.127.0.0.1.xip.io"
+        volumes:
+         - ./data/ca:/usr/local/share/ca-certificates/ca
+         - ./data/certs:/usr/local/share/ca-certificates/certs
 networks:
     proxy:
         external: true
